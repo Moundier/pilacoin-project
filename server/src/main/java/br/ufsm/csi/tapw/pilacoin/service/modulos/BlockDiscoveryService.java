@@ -71,6 +71,7 @@ public class BlockDiscoveryService extends IModulo {
     }
 
     public class BlockMinerRunnable implements Runnable {
+        
         private final Difficulty difficulty;
         private final BlocoJson blocoJson;
 

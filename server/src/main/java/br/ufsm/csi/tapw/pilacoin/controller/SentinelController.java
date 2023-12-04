@@ -1,25 +1,29 @@
 package br.ufsm.csi.tapw.pilacoin.controller;
 
-import br.ufsm.csi.tapw.pilacoin.model.Modulo;
-import br.ufsm.csi.tapw.pilacoin.service.ModuloService;
-import br.ufsm.csi.tapw.pilacoin.types.IModulo;
-import lombok.SneakyThrows;
-
 import java.util.List;
 
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import br.ufsm.csi.tapw.pilacoin.model.Modulo;
+import br.ufsm.csi.tapw.pilacoin.service.ModuloService;
+import br.ufsm.csi.tapw.pilacoin.types.IModulo;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+
 @RestController
-@RequestMapping("/modulo")
-public class ModuloController {
+@RequestMapping("")
+@RequiredArgsConstructor
+public class SentinelController {
+  
+    // Modulo Controller becomes SentinelController
 
     private final ModuloService moduloService;
-
-    public ModuloController(ModuloService moduloService) {
-        this.moduloService = moduloService;
-    }
 
     @GetMapping("/{nome}")
     public Modulo getModulo(@PathVariable String nome) {

@@ -24,7 +24,7 @@ public class Singleton {
         this.properties = properties;
     }
 
-    // BILL PUGS'S SINGLETON
+    // BILL PUGS'S SINGLETON IMPLEMENTATION
     public static Singleton getInstance() {
         return GetSingleton.INSTANCE;
     }

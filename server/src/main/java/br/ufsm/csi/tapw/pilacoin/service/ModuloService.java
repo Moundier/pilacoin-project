@@ -1,6 +1,6 @@
 package br.ufsm.csi.tapw.pilacoin.service;
 
-import br.ufsm.csi.tapw.pilacoin.exception.ModuloNotFoundException;
+import br.ufsm.csi.tapw.pilacoin.exception.CustomNotFoundException;
 import br.ufsm.csi.tapw.pilacoin.model.Modulo;
 import br.ufsm.csi.tapw.pilacoin.repository.ModuloRepository;
 import br.ufsm.csi.tapw.pilacoin.types.IModulo;
@@ -61,7 +61,7 @@ public class ModuloService {
         IModulo moduloInterface = this.getModulo(nome);
 
         if (moduloInterface == null) {
-            throw new ModuloNotFoundException();
+            throw new CustomNotFoundException("modulo not found");
         }
 
         moduloInterface.register(modulo);

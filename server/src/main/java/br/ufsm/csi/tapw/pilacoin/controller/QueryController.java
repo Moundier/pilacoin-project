@@ -21,7 +21,10 @@ public class QueryController {
     private final QueueService queueService;
     private final Singleton sharedUtil;
 
-    public QueryController(QueueService queueService, Singleton sharedUtil) {
+    public QueryController(
+        QueueService queueService, 
+        Singleton sharedUtil
+    ) {
         this.queueService = queueService;
         this.sharedUtil = sharedUtil;
     }

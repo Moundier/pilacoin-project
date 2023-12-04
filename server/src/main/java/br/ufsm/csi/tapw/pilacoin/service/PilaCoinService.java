@@ -16,6 +16,7 @@ import java.util.Optional;
 
 @Service
 public class PilaCoinService {
+    
     private final PilaCoinRepository pilaCoinRepository;
     private final Singleton sharedUtil;
 
