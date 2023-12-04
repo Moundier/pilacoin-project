@@ -3,11 +3,9 @@ import { Routes, RouterModule } from "@angular/router";
 import { Tab1Component } from "./tab-1/tab-1.component";
 import { Tab2Component } from "./tab-2/tab-2.component";
 import { TabsComponent } from "./tabs/tabs.component";
-import { PageLoginComponent } from "./page-login/page-login.component";
 import { Tab0Component } from "./tab-0/tab-0.component";
 
 const routes: Routes = [
-    { path: 'login', component: PageLoginComponent }, 
     {
         path: '',
         redirectTo: 'tabs/tab-1', // Redirect to tab-1 by default

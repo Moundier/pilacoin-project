@@ -1,7 +1,7 @@
 /* Add styles for the navigation bar */
 
 * {
-  font-size: 20px;
+  font-size: 12px;
 }
 
 .tabs {
@@ -78,4 +78,8 @@ span.dark {
 
 .margin_left {
   margin-left: 20px;
+}
+
+.limited_width {
+
 }
