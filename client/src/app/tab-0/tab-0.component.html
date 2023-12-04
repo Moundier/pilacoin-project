@@ -3,7 +3,7 @@
   <div class="flex items-center justify-between">
     <h2 class="text-xl font-bold text-capitalize">{{ title }}</h2>
     <div class="flex items-center gap-2">
-      <button class="p-1 text-sm text-white rounded-sm bg-neutral-800" (click)="reload()">
+      <button class="custom_button" (click)="reload()">
         Reload
       </button>
     </div>
@@ -16,10 +16,24 @@
       <p>Não foi possível carregar os dados</p>
     </div>
     <div *ngIf="!isLoading && !isError && queryData?.idQuery">
-      <div *ngFor="let user of users">
-        {{ user.id }}
-        {{ user.nome }}
-      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>public_key</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{ user.id }}</td>
+              <td>{{ user.nome }}</td>
+              <td class="limited_width">{{ user.chavePublica }}</td>
+            </tr>
+        </tbody>
+      </table>
+
     </div>
     <div *ngIf="!isLoading && !isError && !queryData?.idQuery">
       <div class="flex flex-col items-center justify-center flex-1">

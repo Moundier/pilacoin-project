@@ -32,15 +32,10 @@ export class Tab0Component {
     this.queueService.getFrom("usuarios").subscribe(
       {
         next: (response: QueryResponseJson) => {
-          console.log(response);
           this.queryData = response;
 
           this.users = this.queryData!.usuariosResult!;
         
-          if (this.queryData.idQuery) {
-          } 
-          else {
-          }
           this.isLoading = false;
         },
         error: (error: HttpErrorResponse) => {
