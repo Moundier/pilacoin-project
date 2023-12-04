@@ -10,6 +10,9 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+
 
 @Service
 public class QueueService {
@@ -43,8 +46,16 @@ public class QueueService {
         String json = JacksonUtil.toString(queryJson);
         this.enqueue("query", json);
 
+        ObjectMapper om = new ObjectMapper();
+        ObjectWriter ow = om.writerWithDefaultPrettyPrinter();
+
         for (int tries = 0; ++tries != 10;) {
             String responseJson = (String) this.rabbitTemplate.receiveAndConvert(queryJson.getNomeUsuario() + "-query");
+
+            String error = ow.writeValueAsString(responseJson);
+
+            System.out.println("\n\nError in here: " + error + "\n\n");
+
             QueryResponseJson response = JacksonUtil.convert(responseJson, QueryResponseJson.class);
 
             if (response == null) {
