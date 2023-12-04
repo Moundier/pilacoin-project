@@ -8,10 +8,9 @@ Project
 4. docker-compose
 
 ### Made with
-- Java
+- Java with Spring
 - Angular
 - RabbitMQ
 - Docker
-- Spring
-- JPA object-mapper
+- Spring with JPA
 - PostgreSQL
