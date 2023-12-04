@@ -1,52 +1,25 @@
-import { Injectable, Injector } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { QueryResponseJson } from './model';
-import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QueueService {
   
-  private API = 'http://localhost:8080/query';
-  private http: HttpClient | undefined;
+  private API = 'http://localhost:8080/query'; // Update with your API endpoint
 
-  
+  constructor(private http: HttpClient) { }
 
-  constructor(private injector: Injector) {}
-
-  private get httpService(): HttpClient {
-    if (!this.http) {
-      // Lazily get the HttpClient instance to avoid circular dependency
-      this.http = this.injector.get(HttpClient);
-    }
-    return this.http;
+  getFrom(query: string): Observable<any> {
+    return this.http.get<any>(`${this.API}/${query}?self=true`);
   }
 
-  getUsuarios(): Observable<any> {
-    let params = {
-      category: 'self',
-      status: 'true'
-    };
-    return this.httpService.get<AnyCatcher>(`${this.API}/usuarios`, { params });
+  getPilas(query: string): Observable<any> {
+    return this.http.get<any>(`${this.API}/${query}?self=true`);
   }
 
-  getPilas(): Observable<any> {
-    let params = {
-      category: 'self',
-      status: 'true'
-    };
-
-    return this.httpService.get<any>(`${this.API}/pilas`, { params });
-  }
-
-  getBlocos(): Observable<any> {
-    let params = {
-      category: 'self',
-      status: 'true'
-    };
-
-    return this.httpService.get<any>(`${this.API}/blocos`, { params });
+  getBlocos(query: string): Observable<any> {
+    return this.http.get<any>(`${this.API}/${query}?self=true`);
   }
 }

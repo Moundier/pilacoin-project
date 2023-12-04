@@ -36,3 +36,9 @@ export interface PilaCoinJson {
   nonce: string;
   transacoes: TransacaoJson[];
 }
+
+export interface UsuarioJson {
+  id: number;
+  chavePublica: Uint8Array;
+  nome: string;
+}

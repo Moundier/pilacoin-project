@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { QueueService } from './queue-service';
-import { QueryResponseJson } from './model';
+import { QueryResponseJson, UsuarioJson } from './model';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -13,52 +13,45 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class Tab0Component {
 
-  users!: QueryResponseJson[];
-  pilas!: QueryResponseJson[];
-  blocks!: QueryResponseJson[];
+  title!: string;
+  queryData!: QueryResponseJson;
+  isLoading!: boolean;
+  isError!: boolean;
 
-  constructor(private queueService: QueueService) {}
+  users!: UsuarioJson[];
+
+  constructor(private queueService: QueueService) { }
 
   ngOnInit(): void {
-    this.subscribeToUsers();
-    this.subscribeToPilas();
-    this.subscribeToBlocks();
+    this.loadData();
   }
 
-  private subscribeToUsers(): void {
-    
-    this.queueService.getUsuarios().subscribe({
-      next: (value: any) => {
-        console.log(value);
-      }, 
-      error: (error: HttpErrorResponse) => {
-        this.handleErrors(error);
-      }
-    });
-  }
+  loadData(): void {
 
-  private subscribeToPilas(): void {
-    
-    this.queueService.getPilas().subscribe({
-      next: (value: any) => {
-        console.log(value);
-      }, 
-      error: (error: HttpErrorResponse) => {
-        this.handleErrors(error);
-      }
-    });
-  }
+    this.isLoading = true;
+    this.isError = false;
 
-  private subscribeToBlocks(): void {
+    this.queueService.getFrom("usuarios").subscribe(
+      {
+        next: (response: QueryResponseJson) => {
+          console.log(response);
+          this.queryData = response;
 
-    this.queueService.getBlocos().subscribe({
-      next: (value: any) => {
-        console.log(value);
-      }, 
-      error: (error: HttpErrorResponse) => {
-        this.handleErrors(error);
+          this.users = this.queryData!.usuariosResult!;
+        
+          if (this.queryData.idQuery) {
+          } 
+          else {
+          }
+          this.isLoading = false;
+        },
+        error: (error: HttpErrorResponse) => {
+          this.isLoading = false;
+          this.isError = true;
+          this.handleErrors(error);
+        }
       }
-    });
+    );
   }
 
   private handleErrors(error: HttpErrorResponse): void {
@@ -70,14 +63,20 @@ export class Tab0Component {
         console.error('Error 401: ' + error.status);
         break;
       case 404:
-        console.error('Error 404: ' + error.status);
+        console.error('Not Found: ' + error.status);
         break;
       case 500:
-        console.error('Error: ' + error.status);
+        console.error('Internal Server Error: ' + error.status);
         break;
       default:
         console.error('Error: ' + error.status);
         break;
     }
   }
+
+  // Add a method to handle reloading
+  reload(): void {
+    this.loadData();
+  }
+
 }
