@@ -11,7 +11,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class Tab0Component {
 
-  title!: string;
   queryData!: QueryResponseJson;
   isLoading!: boolean;
   isError!: boolean;
