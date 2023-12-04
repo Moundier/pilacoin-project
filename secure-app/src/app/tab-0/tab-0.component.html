@@ -1,0 +1,24 @@
+<p>tab-0 works!</p>
+<img src="https://placehold.co/200x100/ABABAB/FF0000/png" alt="">
+
+<!-- user-list.component.html -->
+<div>
+  <h2>User List</h2>
+  <ul>
+    <li *ngFor="let user of users">{{ user.pilasResult }}</li>
+  </ul>
+</div>
+
+<div>
+  <h2>Pila List</h2>
+  <ul>
+    <li *ngFor="let pila of pilas">{{ pila.idQuery }}</li>
+  </ul>
+</div>
+
+<div>
+  <h2>Block List</h2>
+  <ul>
+    <li *ngFor="let block of blocks">{{ block.idQuery }}</li>
+  </ul>
+</div>

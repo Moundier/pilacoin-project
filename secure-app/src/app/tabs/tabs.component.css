@@ -1,0 +1,81 @@
+/* Add styles for the navigation bar */
+
+* {
+  font-size: 20px;
+}
+
+.tabs {
+  padding: 10px;
+  background: #404040;
+}
+
+button {
+  background: none;
+  border: none;
+}
+
+.tab_btn {
+  color: #dedede;
+  border-radius: 50px;
+  padding: 5px;
+  padding-left: 1.25em;
+  padding-right: 1.25em;
+  margin-right: .5em;
+}
+
+button svg {
+  max-height: 30px;
+  fill: aliceblue;
+}
+
+.tab_btn:hover {
+  background-color: #636363;
+}
+
+.active {
+  color: #fff;
+  background-color: #1e1e1e;
+}
+
+/* Division */
+
+.division {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navigation {
+  display: flex;
+}
+
+.options {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sign_in, span {
+  margin-left: .5em;
+  padding: 5px;
+  padding-left: .75em;
+  padding-right: .75em;
+  margin-right: .5em;
+  font-size: 20px;
+}
+
+span {
+  border-radius: 50px;
+}
+
+span.light {
+  color: #fba402;
+  background: #030303;
+}
+
+span.dark {
+  color: #f7e303;
+  background: #222222;
+}
+
+.margin_left {
+  margin-left: 20px;
+}

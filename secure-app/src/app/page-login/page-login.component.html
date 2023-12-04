@@ -1,0 +1,69 @@
+<div class="wrapper">
+  
+  <main class="login_widget">
+    <header class="login_message">
+      <h1>Welcome back</h1>
+      <p>Log in to OpenBook to continue Exploring.</p>
+    </header>
+
+    <!-- Angular Material -->
+
+    <form action="">
+
+      <mat-form-field class="input" appearance="fill">
+        <mat-label>Enter your email</mat-label>
+        <input matInput placeholder="Placeholder" [formControl]="email">
+        <mat-icon *ngIf="!email.valid" matSuffix>sentiment_very_dissatisfied</mat-icon>
+        <mat-error *ngIf="email.invalid">{{ this.getErrorMessage('email') }}</mat-error>
+        <mat-icon *ngIf="email.valid" matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-hint *ngIf="email.valid">Completed!</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field class="input" appearance="fill">
+        <mat-label>Enter your name (more than 5 characters)</mat-label>
+        <input matInput placeholder="John Doe" [formControl]="name" required>
+        <mat-error *ngIf="name.invalid">{{ getErrorMessage('name') }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="input" appearance="fill">
+        <mat-label>Enter your password</mat-label>
+        <input matInput type="password" placeholder="********" [formControl]="password" required>
+        <mat-error *ngIf="password.invalid">{{ getErrorMessage('password') }}</mat-error>
+      </mat-form-field>
+      
+      <mat-form-field class="input" appearance="fill">
+        <mat-label>Confirm your password</mat-label>
+        <input matInput type="password" placeholder="********" [formControl]="confirmPassword" required>
+        <mat-error *ngIf="confirmPassword.invalid">{{ getErrorMessage('confirmPassword') }}</mat-error>
+      </mat-form-field>
+
+    </form>
+
+    <button class="enter mg_top margin_left" (click)="handleButtonClick()">Sign in</button>
+
+    <p class="mg_top">Don't have an account? <a href="/create/account/link" aria-label="">Sign up</a></p>
+
+    <footer>
+      <div class="login_icons">
+        <button class="icon custom-color" mat-button>
+          <img src="../../assets/icon-google.png" alt="google">
+        </button>
+  
+        <button class="icon custom-color" mat-button>
+          <img src="../../assets/icon-facebook.png" alt="facebook">
+        </button>
+  
+        <button class="icon custom-color" mat-button>
+          <img src="../../assets/icon-apple.png" alt="apple">
+        </button>      
+      </div>
+  
+      <div class="mg_top">
+        <a href="https://openai.com/policies/terms-of-use" target="_blank">Terms of use</a> |
+        <a href="https://openai.com/policies/privacy-policy" target="_blank">Privacy policy</a>
+      </div>
+    </footer>
+
+  </main>
+  
+</div>

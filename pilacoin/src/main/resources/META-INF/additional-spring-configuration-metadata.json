@@ -1,0 +1,59 @@
+{
+  "properties": [
+    {
+      "name": "queue.pila.minerado",
+      "type": "java.lang.String",
+      "description": "A description for 'queue.pila.minerado'"
+    },
+    {
+      "name": "queue.pila.validado",
+      "type": "java.lang.String",
+      "description": "A description for 'queue.pila.validado'"
+    },
+    {
+      "name": "queue.pila.transferir",
+      "type": "java.lang.String",
+      "description": "A description for 'queue.pila.transferir'"
+    },
+    {
+      "name": "queue.bloco.descobre",
+      "type": "java.lang.String",
+      "description": "A description for 'queue.bloco.descobre'"
+    },
+    {
+      "name": "queue.bloco.minerado",
+      "type": "java.lang.String",
+      "description": "A description for 'queue.bloco.minerado'"
+    },
+    {
+      "name": "queue.bloco.validado",
+      "type": "java.lang.String",
+      "description": "A description for 'queue.bloco.validado'"
+    },
+    {
+      "name": "queue.msgs",
+      "type": "java.lang.String",
+      "description": "A description for 'queue.msgs'"
+    },
+    {
+      "name": "queue.errors",
+      "type": "java.lang.String",
+      "description": "A description for 'queue.errors'"
+    },
+    {
+      "name": "queue.dificuldade",
+      "type": "java.lang.String",
+      "description": "A description for 'queue.dificuldade'"
+    },
+    {
+      "name": "pilacoin.home",
+      "type": "java.lang.String",
+      "description": "A description for 'pilacoin.home'"
+    },
+    {
+      "name": "pilacoin.username",
+      "type": "java.lang.String",
+      "description": "A description for 'pilacoin.username'"
+    }
+  ]
+}

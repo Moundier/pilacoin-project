@@ -1,0 +1,41 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Material Icons */
+
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0");
+
+:root {
+    --background-light: #ffffff;
+    --background-dark: #1e1e1e;
+    --text-light: #333333;
+    --text-dark: #ffffff;
+    --icon-light: #ffffff;
+    --icon-dark: #333333;
+}
+
+body {
+    background-color: var(--background-light);
+    color: var(--text-light);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body[data-theme="dark"] {
+    background-color: var(--background-dark);
+    color: var(--text-dark);
+}
+
+main {
+    text-align: center;
+    position: relative;
+}
+
+/* Global */
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    font-family: 'Ubuntu Mono';
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
