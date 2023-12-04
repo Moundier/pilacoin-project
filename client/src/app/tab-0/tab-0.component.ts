@@ -6,8 +6,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-tab-0',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './tab-0.component.html',
   styleUrl: './tab-0.component.css'
 })

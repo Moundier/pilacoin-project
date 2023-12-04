@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { Tab1Component } from './tab-1/tab-1.component';
 import { Tab2Component } from './tab-2/tab-2.component';
-import { Tab3Component } from './tab-3/tab-3.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TabsComponent } from './tabs/tabs.component';
 
@@ -24,14 +23,15 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { Tab0Component } from './tab-0/tab-0.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TabsComponent,
+    Tab0Component,
     Tab1Component,
     Tab2Component,
-    Tab3Component,
   ],
   imports: [
     BrowserModule,

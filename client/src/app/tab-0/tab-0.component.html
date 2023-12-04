@@ -16,10 +16,9 @@
       <p>Não foi possível carregar os dados</p>
     </div>
     <div *ngIf="!isLoading && !isError && queryData?.idQuery">
-      <div class="flex flex-col">
-        <div>
-          {{ users }}
-        </div>
+      <div *ngFor="let user of users">
+        {{ user.id }}
+        {{ user.nome }}
       </div>
     </div>
     <div *ngIf="!isLoading && !isError && !queryData?.idQuery">
