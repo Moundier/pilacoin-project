@@ -4,7 +4,7 @@ import br.ufsm.csi.tapw.pilacoin.model.BlocoValidado;
 import br.ufsm.csi.tapw.pilacoin.model.Difficulty;
 import br.ufsm.csi.tapw.pilacoin.model.json.BlocoJson;
 import br.ufsm.csi.tapw.pilacoin.service.QueueService;
-import br.ufsm.csi.tapw.pilacoin.types.IModulo;
+import br.ufsm.csi.tapw.pilacoin.types.Observer;
 import br.ufsm.csi.tapw.pilacoin.util.CryptoUtil;
 import br.ufsm.csi.tapw.pilacoin.util.JacksonUtil;
 import br.ufsm.csi.tapw.pilacoin.util.JournalUtil;
@@ -14,7 +14,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BlockValidationService extends IModulo {
+public class BlockValidationService implements Observer<Difficulty>  {
     private final QueueService queueService;
     private final Singleton sharedUtil;
 
@@ -37,10 +37,10 @@ public class BlockValidationService extends IModulo {
             return;
         }
 
-        if (!this.modulo.isAtivo()) {
-            this.queueService.publishBlocoMinerado(blocoJson);
-            return;
-        }
+        // if (!this.modulo.isAtivo()) {
+        //     this.queueService.publishBlocoMinerado(blocoJson);
+        //     return;
+        // }
 
         boolean valid = CryptoUtil.compareHash(json, this.difficulty.getDificuldade());
 

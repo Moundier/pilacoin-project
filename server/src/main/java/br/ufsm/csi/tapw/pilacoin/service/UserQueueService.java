@@ -13,16 +13,16 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import br.ufsm.csi.tapw.pilacoin.model.PilaCoin;
 import br.ufsm.csi.tapw.pilacoin.model.json.MessageJson;
 import br.ufsm.csi.tapw.pilacoin.model.json.ReportJson;
-import br.ufsm.csi.tapw.pilacoin.types.ModuloLogMessage;
+import br.ufsm.csi.tapw.pilacoin.types.SSEMessage;
 import br.ufsm.csi.tapw.pilacoin.util.JacksonUtil;
 import br.ufsm.csi.tapw.pilacoin.util.JournalUtil;
 import br.ufsm.csi.tapw.pilacoin.util.Singleton;
 
 @Service
 public class UserQueueService {
+    
     private final PilaCoinService pilaCoinService;
     private final Singleton sharedUtil;
-    private final ModuloService moduloService;
 
     @Value("${queue.pila.minerado}")
     private String PILA_MINERADO;
@@ -31,10 +31,10 @@ public class UserQueueService {
 
     private ReportJson lastReport;
 
-    public UserQueueService(PilaCoinService pilaCoinService, Singleton sharedUtil, ModuloService moduloService) {
+    public UserQueueService(PilaCoinService pilaCoinService, Singleton sharedUtil) {
         this.pilaCoinService = pilaCoinService;
         this.sharedUtil = sharedUtil;
-        this.moduloService = moduloService;
+        // this.moduloService = moduloService;
     }
 
     @RabbitListener(queues = "${pilacoin.username}")
@@ -64,13 +64,13 @@ public class UserQueueService {
         }
 
         JournalUtil.log(response);
-        this.moduloService.log(
-            ModuloLogMessage.builder()
-                .topic("UserMessage")
-                .title(message.getQueue())
-                .message(message.getMsg())
-                .build()
-        );
+        // this.moduloService.log(
+        //     ModuloLogMessage.builder()
+        //         .topic("UserMessage")
+        //         .title(message.getQueue())
+        //         .message(message.getMsg())
+        //         .build()
+        // );
     }
 
     @RabbitListener(queues = "report")
@@ -106,12 +106,12 @@ public class UserQueueService {
 
         JournalUtil.log(message.getErro());
 
-        ModuloLogMessage mod = ModuloLogMessage.builder()
+        SSEMessage mod = SSEMessage.builder()
         .topic("UserMessage")
         .title(message.getQueue())
         .message(message.getErro())
         .build(); 
 
-        this.moduloService.log(mod);
+        // this.moduloService.log(mod);
     }
 }

@@ -4,7 +4,7 @@ import br.ufsm.csi.tapw.pilacoin.model.Difficulty;
 import br.ufsm.csi.tapw.pilacoin.model.json.PilaCoinJson;
 import br.ufsm.csi.tapw.pilacoin.service.PilaCoinService;
 import br.ufsm.csi.tapw.pilacoin.service.QueueService;
-import br.ufsm.csi.tapw.pilacoin.types.IModulo;
+import br.ufsm.csi.tapw.pilacoin.types.Observer;
 import br.ufsm.csi.tapw.pilacoin.util.JournalUtil;
 import br.ufsm.csi.tapw.pilacoin.util.Singleton;
 import lombok.SneakyThrows;
@@ -14,7 +14,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Service
-public class PilaCoinMinecraftService extends IModulo {
+public class PilaCoinMinecraftService implements Observer<Difficulty>  {
     private final QueueService queueService;
     private final PilaCoinService pilaCoinService;
     private final Singleton sharedUtil;
@@ -66,7 +66,7 @@ public class PilaCoinMinecraftService extends IModulo {
     @Override
     public void update(Difficulty subject) {
 
-        if (!this.modulo.isAtivo() || subject == null) {
+        if ( /*!this.modulo.isAtivo() || */ subject == null) {
             return;
         }
 

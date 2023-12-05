@@ -7,19 +7,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonPropertyOrder(alphabetic = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class QueryResponseJson {
-    private Long idQuery;
-    private String usuario;
-
-    private List<PilaCoinJson> pilasResult;
-    private List<BlocoJson> blocosResult;
-    private List<UsuarioJson> usuariosResult;
+public class UsuarioJson {
+    private Long id;
+    private String nome;
+    private byte[] chavePublica;
 }

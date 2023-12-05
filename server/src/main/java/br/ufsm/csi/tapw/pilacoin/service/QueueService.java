@@ -1,5 +1,6 @@
 package br.ufsm.csi.tapw.pilacoin.service;
 
+import br.ufsm.csi.tapw.pilacoin.exception.CustomNotFoundException;
 import br.ufsm.csi.tapw.pilacoin.model.BlocoValidado;
 import br.ufsm.csi.tapw.pilacoin.model.PilaCoinValidado;
 import br.ufsm.csi.tapw.pilacoin.model.Transferencia;
@@ -50,13 +51,12 @@ public class QueueService {
         ObjectWriter ow = om.writerWithDefaultPrettyPrinter();
 
         for (int tries = 0; ++tries != 10;) {
-            String responseJson = (String) this.rabbitTemplate.receiveAndConvert(queryJson.getNomeUsuario() + "-query");
+            String responseJson = this.receiveFromQueue(queryJson.getNomeUsuario() + "-query");
+            QueryResponseJson response = JacksonUtil.convert(responseJson, QueryResponseJson.class);
 
             String error = ow.writeValueAsString(responseJson);
 
             System.out.println("\n\nError in here: " + error + "\n\n");
-
-            QueryResponseJson response = JacksonUtil.convert(responseJson, QueryResponseJson.class);
 
             if (response == null) {
                 Thread.sleep(500);
@@ -69,9 +69,7 @@ public class QueueService {
             }
         }
 
-        return QueryResponseJson.builder()
-            .idQuery(0L)
-            .build();
+        throw new CustomNotFoundException("Modulo not found");
     }
 
     private void enqueue(String queue, String message) {
@@ -100,5 +98,9 @@ public class QueueService {
 
     public void publishTransferencia(Transferencia transferencia) {
         this.enqueue(TRANSFERIR_PILA, JacksonUtil.toString(transferencia));
+    }
+
+    private String receiveFromQueue(String queue) {
+        return (String) this.rabbitTemplate.receiveAndConvert(queue);
     }
 }

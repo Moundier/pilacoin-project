@@ -23,21 +23,21 @@ public class JacksonUtil {
     @SneakyThrows
     @SuppressWarnings("unchecked")
     public static <T> T convert(String jsonString, Object valueType) {
+        try {
+            ObjectMapper mapper = getMapper();
 
-        if (jsonString == null) {
-            throw new IllegalArgumentException("4.1 Input JSON string is null");
-        }
-
-        ObjectMapper mapper = getMapper();
-
-        if (valueType instanceof Class)
-            return mapper.readValue(jsonString, (Class<T>) valueType);
-        else if (valueType instanceof TypeReference<?>) 
-            return mapper.readValue(jsonString, (TypeReference<T>) valueType);
-        else {
-            throw new IllegalArgumentException("Unsupported valueType");
+            if (valueType instanceof Class) {
+                return mapper.readValue(jsonString, (Class<T>) valueType);
+            } else if (valueType instanceof TypeReference<?>) {
+                return mapper.readValue(jsonString, (TypeReference<T>) valueType);
+            } else {
+                throw new IllegalArgumentException("Unsupported valueType");
+            }
+        } catch (Exception e) {
+            return null;
         }
     }
+
 
     @SneakyThrows
     public static <T> String toString(T object) {

@@ -1,58 +1,37 @@
-
 table {
-    max-height: 200px;
-    max-width: 400px;
+    margin: 10px;
     border-collapse: collapse;
-    margin-top: 20px;
+    width: 80%;
 }
 
 th, td {
-    padding: 2px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-tr {
-    transition: background-color 0.4s ease;
-}
-
-tr:hover {
-    color: #8bbbff;
-    background-color: #121e2f;
-}
-
-td {
-    max-height: 8px;
-}
-
-table, th, td {
-    border-color: #1b3862; /* Set your preferred border color */
+    border: 1px solid black;
+    padding: 5px;
 }
 
 .limited_width {
-  max-width: 600px; /* Adjust the max-width according to your preference */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    max-width: 600px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
-
-/* custom button css */
 
 .custom_button {
     display: inline-block;
-    padding: 5px 10px;
-    font-size: 12px;
     font-weight: bold;
     text-align: center;
     text-decoration: none;
     cursor: pointer;
     border: none;
     border-radius: 5px;
-    background-color: #c7e3fd; /* Green */
-    color: #003f76; /* White text */
+    padding: 5px 10px;
+    font-size: 12px;
+    margin: 10px;
+    color: #003f76;
+    background-color: #c7e3fd;
     transition: background-color 0.3s ease;
 }
 
 .custom_button:hover {
-    background-color: #a8d5ff; /* Darker green on hover */
+    background-color: #a8d5ff;
 }

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { QueueService } from './queue-service';
-import { QueryResponseJson, UsuarioJson } from './model';
+import { QueryResponse, QueryResponseJson, UsuarioJson } from './model';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -11,7 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class Tab0Component {
 
-  queryData!: QueryResponseJson;
+  queryData!: QueryResponse<UsuarioJson>;
   isLoading!: boolean;
   isError!: boolean;
 
@@ -30,11 +30,15 @@ export class Tab0Component {
 
     this.queueService.getFrom("usuarios").subscribe(
       {
-        next: (response: QueryResponseJson) => {
+        next: (response: QueryResponse<UsuarioJson>) => {
+
+          console.log("Loggin : [this.queueService.getFrom(\"usuarios\")] " + response);
+          console.log("Loggin : [this.queueService.getFrom(\"usuarios\")] " + JSON.stringify(response));
+          
           this.queryData = response;
 
-          this.users = this.queryData!.usuariosResult!;
-        
+          this.users = response.result;
+
           this.isLoading = false;
         },
         error: (error: HttpErrorResponse) => {

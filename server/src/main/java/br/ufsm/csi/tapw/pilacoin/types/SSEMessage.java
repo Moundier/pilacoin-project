@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ModuloLogMessage {
+public class SSEMessage {
     
     @Builder.Default
     public Long timestamp = System.currentTimeMillis();

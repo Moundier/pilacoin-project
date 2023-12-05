@@ -1,4 +1,4 @@
-package br.ufsm.csi.tapw.pilacoin.model.json;
+package br.ufsm.csi.tapw.pilacoin.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -15,11 +15,9 @@ import java.util.List;
 @AllArgsConstructor
 @JsonPropertyOrder(alphabetic = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class QueryResponseJson {
+public class QueryResponse<T> {
+
     private Long idQuery;
     private String usuario;
-
-    private List<PilaCoinJson> pilasResult;
-    private List<BlocoJson> blocosResult;
-    private List<UsuarioJson> usuariosResult;
+    private List<T> result;
 }

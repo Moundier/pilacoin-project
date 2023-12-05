@@ -3,7 +3,7 @@ package br.ufsm.csi.tapw.pilacoin.service.modulos;
 import br.ufsm.csi.tapw.pilacoin.model.Difficulty;
 import br.ufsm.csi.tapw.pilacoin.model.json.BlocoJson;
 import br.ufsm.csi.tapw.pilacoin.service.QueueService;
-import br.ufsm.csi.tapw.pilacoin.types.IModulo;
+import br.ufsm.csi.tapw.pilacoin.types.Observer;
 import br.ufsm.csi.tapw.pilacoin.util.CryptoUtil;
 import br.ufsm.csi.tapw.pilacoin.util.JacksonUtil;
 import br.ufsm.csi.tapw.pilacoin.util.JournalUtil;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class BlockDiscoveryService extends IModulo {
+public class BlockDiscoveryService implements Observer<Difficulty> {
 
     // FINDS AND MINES BLOCKS
 
@@ -41,7 +41,7 @@ public class BlockDiscoveryService extends IModulo {
 
         BlocoJson blocoJson = JacksonUtil.convert(json, BlocoJson.class);
 
-        if (blocoJson == null || !this.modulo.isAtivo()) {
+        if (blocoJson == null) {
             this.queueService.publishBlocoDescoberto(blocoJson);
             return;
         }
