@@ -13,7 +13,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import br.ufsm.csi.tapw.pilacoin.model.PilaCoin;
 import br.ufsm.csi.tapw.pilacoin.model.json.MessageJson;
 import br.ufsm.csi.tapw.pilacoin.model.json.ReportJson;
-import br.ufsm.csi.tapw.pilacoin.types.SSEMessage;
 import br.ufsm.csi.tapw.pilacoin.util.JacksonUtil;
 import br.ufsm.csi.tapw.pilacoin.util.JournalUtil;
 import br.ufsm.csi.tapw.pilacoin.util.Singleton;
@@ -105,13 +104,5 @@ public class UserQueueService {
         }
 
         JournalUtil.log(message.getErro());
-
-        SSEMessage mod = SSEMessage.builder()
-        .topic("UserMessage")
-        .title(message.getQueue())
-        .message(message.getErro())
-        .build(); 
-
-        // this.moduloService.log(mod);
     }
 }

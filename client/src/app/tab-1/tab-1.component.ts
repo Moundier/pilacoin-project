@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SseService } from './sse-service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tab-1',
@@ -10,29 +9,21 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class Tab1Component {
 
-  messages: any[] = [];
-  private sseSubscription!: Subscription;
+ 
+  messages: string[] = [];
+    private sseSubscription!: Subscription;
 
-  constructor(private sseService: SseService) {}
+    constructor(private sseService: SseService) {}
 
-  ngOnInit() {
-    this.sseSubscription = this.sseService.connect().subscribe(
-      {
-        next: (response: any) => {
-          this.messages.push(response);
-        },
-        error: (error: Event) => {
-          const errorEvent = event as MessageEvent;
-          const errorData = JSON.parse(errorEvent.data);
-          const errorMessage = errorData && errorData.error ? errorData.error : 'Unknown SSE Error';
-          console.error('SSE Error:', errorMessage);
-        }
-      }
-    );
-  }
+    ngOnInit() {
+        this.sseSubscription = this.sseService.getServerSentEventUpdates().subscribe(
+            (message: string) => this.messages.push(message),
+            error => console.error('Error in SSE:', error)
+        );
+    }
 
-  ngOnDestroy() {
-    this.sseService.closeConnection();
-    this.sseSubscription.unsubscribe();
-  }
+    ngOnDestroy() {
+        this.sseSubscription.unsubscribe();
+        this.sseService.closeConnection();
+    }
 }

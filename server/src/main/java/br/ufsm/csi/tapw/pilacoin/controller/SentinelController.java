@@ -1,14 +1,19 @@
 package br.ufsm.csi.tapw.pilacoin.controller;
 
-import java.util.concurrent.atomic.AtomicLong;
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,18 +23,20 @@ import lombok.RequiredArgsConstructor;
 @CrossOrigin(origins = "http://localhost:4200")
 public class SentinelController {
 
-    private final AtomicLong counter = new AtomicLong();
-    private final ObjectMapper objectMapper;
+    @GetMapping("/updates")
+    public SseEmitter updates() {
+        SseEmitter emitter = new SseEmitter();
 
-    @GetMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public String stream() {
-        try {
-            System.out.println("Logging if it works");
-            // Your SSE logic
-            return "data: {\"message\":\"Update " + counter.incrementAndGet() + "\"}\n\n";
-        } catch (Exception e) {
-            System.out.println("Error on Sse");
-            return "data: {\"error\":\"" + e.getMessage() + "\"}\n\n";
-        }
+        // Schedule a task to send updates every second
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        scheduler.scheduleAtFixedRate(() -> {
+            try {
+                emitter.send("Update from server: " + System.currentTimeMillis());
+            } catch (IOException e) {
+                emitter.complete();
+            }
+        }, 1, 1, TimeUnit.SECONDS);
+
+        return emitter;
     }
 }

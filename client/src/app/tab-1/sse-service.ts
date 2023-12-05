@@ -6,25 +6,27 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class SseService {
+
   private eventSource!: EventSource;
 
-  connect(): Observable<any> {
-    this.eventSource = new EventSource('http://localhost:8080/sse/stream'); // Adjust the URL as needed
-    return new Observable(observer => {
-      this.eventSource.onmessage = event => {
-        const data = JSON.parse(event.data);
-        observer.next(data);
-      };
+    getServerSentEventUpdates(): Observable<string> {
+        this.eventSource = new EventSource('http://localhost:8080/sse/updates');
 
-      this.eventSource.onerror = error => {
-        observer.error(error);
-      };
-    });
-  }
+        return new Observable(observer => {
+            this.eventSource.addEventListener('message', (event: MessageEvent) => {
+                observer.next(event.data);
+            });
 
-  closeConnection() {
-    if (this.eventSource) {
-      this.eventSource.close();
+            this.eventSource.onerror = error => {
+                observer.error(error);
+            };
+        });
     }
-  }
+
+    closeConnection() {
+        if (this.eventSource) {
+            this.eventSource.close();
+        }
+    }
+
 }
