@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/sse")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
-public class SentinelController {
+public class SseController {
 
     @GetMapping("/updates")
     public SseEmitter updates() {
