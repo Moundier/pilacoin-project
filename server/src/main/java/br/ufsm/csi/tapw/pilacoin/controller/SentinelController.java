@@ -15,12 +15,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
 public class SentinelController {
-  
+
     private final AtomicLong counter = new AtomicLong();
 
     @GetMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public String stream() {
-        System.out.println("Loggin if works");
-        return "data: {\"message\":\"Update " + counter.incrementAndGet() + "\"}\n\n";
+        try {
+            System.out.println("Logging if it works");
+            // Your SSE logic
+            return "data: {\"message\":\"Update " + counter.incrementAndGet() + "\"}\n\n";
+        } catch (Exception e) {
+            System.out.println("Error on Sse");
+            return "data: {\"error\":\"" + e.getMessage() + "\"}\n\n";
+        }
     }
 }

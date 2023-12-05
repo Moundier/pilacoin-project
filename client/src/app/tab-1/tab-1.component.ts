@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { SseService } from './sse-service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-tab-1',
@@ -16,11 +17,13 @@ export class Tab1Component {
 
   ngOnInit() {
     this.sseSubscription = this.sseService.connect().subscribe(
-      (data: any) => {
-        this.messages.push(data);
-      },
-      error => {
-        console.error('SSE Error:', error);
+      {
+        next: (response: any) => {
+          this.messages.push(response);
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error('SSE Error:', error.error);
+        }
       }
     );
   }
