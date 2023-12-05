@@ -21,18 +21,23 @@ public class SentinelController {
 
     @GetMapping("/updates")
     public SseEmitter updates() {
-        SseEmitter emitter = new SseEmitter(300000L);
 
+        SseEmitter emitter = new SseEmitter(300_000L);
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-        scheduler.scheduleAtFixedRate(() -> {
-            try {
-                emitter.send("Update from server: " + System.currentTimeMillis());
-            } catch (IOException e) {
-                emitter.complete();
-                System.err.println("Erro: AsyncRequestTimeoutException");
-            }
-        }, 1, 1, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(() -> sendUpdate(emitter), 1, 1, TimeUnit.SECONDS);
+
+        emitter.onCompletion(() -> scheduler.shutdown());
 
         return emitter;
     }
+
+    private void sendUpdate(SseEmitter emitter) {
+        try {
+            emitter.send("Update from server: " + System.currentTimeMillis());
+        } catch (IOException e) {
+            emitter.complete();
+            System.err.println("Error: AsyncRequestTimeoutException");
+        }
+    }
+
 }
