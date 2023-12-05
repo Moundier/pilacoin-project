@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -17,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class SentinelController {
 
     private final AtomicLong counter = new AtomicLong();
+    private final ObjectMapper objectMapper;
 
     @GetMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public String stream() {

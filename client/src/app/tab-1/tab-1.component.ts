@@ -21,8 +21,11 @@ export class Tab1Component {
         next: (response: any) => {
           this.messages.push(response);
         },
-        error: (error: HttpErrorResponse) => {
-          console.error('SSE Error:', error.error);
+        error: (error: Event) => {
+          const errorEvent = event as MessageEvent;
+          const errorData = JSON.parse(errorEvent.data);
+          const errorMessage = errorData && errorData.error ? errorData.error : 'Unknown SSE Error';
+          console.error('SSE Error:', errorMessage);
         }
       }
     );
