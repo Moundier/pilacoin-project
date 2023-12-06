@@ -25,7 +25,7 @@ export class SseService {
     });
   }
 
-  connectEvent(): Observable<SseMessage> {
+  connectEvent(): Observable<string> {
     this.eventSource = new EventSource('http://localhost:8080/sse/connect');
 
     return new Observable(observer => {

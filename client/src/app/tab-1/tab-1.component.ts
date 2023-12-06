@@ -39,33 +39,33 @@ export class Tab1Component {
 
   findConnection(): void {
     this.sseSubscription = this.sseService.connectEvent().subscribe({
-      next: (sseMessage: SseMessage) => {
+      next: (sseMessage: string) => {
 
         console.log(sseMessage)
 
-        switch (sseMessage.messageType) {
-          case SseMessageType.MINED_BLOCK:
-            console.log(sseMessage)
-            this.minedBlocks.push(sseMessage);
-            return;
-          case SseMessageType.VALID_BLOCK:
-            console.log(sseMessage)
-            this.validBlocks.push(sseMessage);
-            return;
-          case SseMessageType.MINED_PILA:
-            console.log(sseMessage)
-            this.minedCoins.push(sseMessage);
-            return;
-          case SseMessageType.VALID_PILA:
-            console.log(sseMessage)
-            this.validCoins.push(sseMessage);
-            return;
-          case SseMessageType.TRANSFERRED_PILA:
-            console.log('Do nothing for now');
-            return;
-          default:
-            return;
-        }
+        // switch (sseMessage.messageType) {
+        //   case SseMessageType.MINED_BLOCK:
+        //     console.log(sseMessage)
+        //     this.minedBlocks.push(sseMessage);
+        //     return;
+        //   case SseMessageType.VALID_BLOCK:
+        //     console.log(sseMessage)
+        //     this.validBlocks.push(sseMessage);
+        //     return;
+        //   case SseMessageType.MINED_PILA:
+        //     console.log(sseMessage)
+        //     this.minedCoins.push(sseMessage);
+        //     return;
+        //   case SseMessageType.VALID_PILA:
+        //     console.log(sseMessage)
+        //     this.validCoins.push(sseMessage);
+        //     return;
+        //   case SseMessageType.TRANSFERRED_PILA:
+        //     console.log('Do nothing for now');
+        //     return;
+        //   default:
+        //     return;
+        // }
       },
       error: (error: any) => {
         console.log(error);
