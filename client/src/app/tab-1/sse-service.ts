@@ -9,7 +9,7 @@ export class SseService {
 
   private eventSource!: EventSource;
 
-  getServerSentEventUpdates(): Observable<string> {
+  findEvent(): Observable<string> {
     this.eventSource = new EventSource('http://localhost:8080/sse/updates');
 
     return new Observable(observer => {
@@ -23,7 +23,7 @@ export class SseService {
     });
   }
 
-  closeConnection() {
+  closeConnection(): void {
     if (this.eventSource) {
       this.eventSource.close();
     }

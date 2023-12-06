@@ -19,10 +19,12 @@ import lombok.RequiredArgsConstructor;
 @CrossOrigin(origins = "http://localhost:4200")
 public class SseController {
 
+    private static final long always = -1L;
+
     @GetMapping("/updates")
     public SseEmitter updates() {
 
-        SseEmitter emitter = new SseEmitter(300_000L);
+        final SseEmitter emitter = new SseEmitter(always);
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         scheduler.scheduleAtFixedRate(() -> sendUpdate(emitter), 1, 1, TimeUnit.SECONDS);
 
@@ -39,5 +41,4 @@ public class SseController {
             System.err.println("Error: AsyncRequestTimeoutException");
         }
     }
-
 }

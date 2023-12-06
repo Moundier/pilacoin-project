@@ -9,21 +9,24 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class Tab1Component {
 
- 
   messages: string[] = [];
-    private sseSubscription!: Subscription;
+  private sseSubscription!: Subscription;
 
-    constructor(private sseService: SseService) {}
+  constructor(private sseService: SseService) { }
 
-    ngOnInit() {
-        this.sseSubscription = this.sseService.getServerSentEventUpdates().subscribe(
-            (message: string) => this.messages.push(message),
-            error => console.error('Error in SSE:', error)
-        );
-    }
+  ngOnInit() {
+    this.sseSubscription = this.sseService.findEvent().subscribe({
+      next: (message: string) => {
+        this.messages.push(message);
+      },
+      error: (error: any) => {
+        console.error('Error in SSE:', error)
+      }
+    });
+  }
 
-    ngOnDestroy() {
-        this.sseSubscription.unsubscribe();
-        this.sseService.closeConnection();
-    }
+  ngOnDestroy() {
+    this.sseSubscription.unsubscribe();
+    this.sseService.closeConnection();
+  }
 }

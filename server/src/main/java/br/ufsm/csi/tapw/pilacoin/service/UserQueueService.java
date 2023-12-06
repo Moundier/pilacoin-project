@@ -63,13 +63,6 @@ public class UserQueueService {
         }
 
         JournalUtil.log(response);
-        // this.moduloService.log(
-        //     ModuloLogMessage.builder()
-        //         .topic("UserMessage")
-        //         .title(message.getQueue())
-        //         .message(message.getMsg())
-        //         .build()
-        // );
     }
 
     @RabbitListener(queues = "report")
