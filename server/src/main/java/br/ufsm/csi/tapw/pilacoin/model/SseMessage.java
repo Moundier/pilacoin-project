@@ -11,10 +11,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SseMessage {
 
-  private String className;
-
   @Builder.Default
   private Long timestamp = System.currentTimeMillis();
-
+  private String className;
   private String message;
+  private SseMessageType messageType;
+
+  public enum SseMessageType {
+    MINED_BLOCK,
+    VALID_BLOCK,
+    MINED_PILA,
+    VALID_PILA,
+    TRANSFERRED_PILA,
+  }
 }

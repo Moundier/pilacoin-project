@@ -2,8 +2,11 @@ package br.ufsm.csi.tapw.pilacoin.service.modulos;
 
 import br.ufsm.csi.tapw.pilacoin.model.Difficulty;
 import br.ufsm.csi.tapw.pilacoin.model.PilaCoinValidado;
+import br.ufsm.csi.tapw.pilacoin.model.SseMessage;
+import br.ufsm.csi.tapw.pilacoin.model.SseMessage.SseMessageType;
 import br.ufsm.csi.tapw.pilacoin.model.json.PilaCoinJson;
 import br.ufsm.csi.tapw.pilacoin.service.QueueService;
+import br.ufsm.csi.tapw.pilacoin.service.SseService;
 import br.ufsm.csi.tapw.pilacoin.types.Observer;
 import br.ufsm.csi.tapw.pilacoin.util.CryptoUtil;
 import br.ufsm.csi.tapw.pilacoin.util.JacksonUtil;
@@ -19,10 +22,12 @@ public class PilaCoinValidationService implements Observer<Difficulty>  {
     private final QueueService queueService;
     private final Singleton sharedUtil;
     private Difficulty difficulty;
+    private final SseService sseService;
 
-    public PilaCoinValidationService(QueueService queueService, Singleton sharedUtil) {
+    public PilaCoinValidationService(QueueService queueService, Singleton sharedUtil, SseService sseService) {
         this.queueService = queueService;
         this.sharedUtil = sharedUtil;
+        this.sseService = sseService;
     }
 
     @RabbitListener(queues = "${queue.pila.minerado}")
@@ -36,11 +41,6 @@ public class PilaCoinValidationService implements Observer<Difficulty>  {
         if (pilaCoinJson == null) {
             return;
         }
-
-        // if (!this.modulo.isAtivo()) {
-        //     this.queueService.publishPilaCoinMinerado(pilaCoinJson);
-        //     return;
-        // }
 
         boolean valid = CryptoUtil.compareHash(json, this.difficulty.getDificuldade());
 
@@ -59,6 +59,15 @@ public class PilaCoinValidationService implements Observer<Difficulty>  {
         this.queueService.publishPilaCoinValidado(pilaCoinValidado);
 
         System.out.println("PILA VALIDADO\n---\n" + pilaCoinJson.getNomeCriador());
+
+        SseMessage sseMessage = SseMessage.builder()
+            .className(this.getClass().getName())
+            .message("Pila validado " + pilaCoinJson.getNomeCriador())
+            .timestamp(System.currentTimeMillis())
+            .messageType(SseMessageType.MINED_PILA)
+            .build();
+
+        this.sseService.sendSSE(JacksonUtil.toString(sseMessage));
 
         JournalUtil.log("PilaCoin de " + pilaCoinJson.getNomeCriador() + " validado.");
     }

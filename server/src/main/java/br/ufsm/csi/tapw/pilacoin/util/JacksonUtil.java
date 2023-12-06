@@ -38,7 +38,6 @@ public class JacksonUtil {
         }
     }
 
-
     @SneakyThrows
     public static <T> String toString(T object) {
         return getMapper().writeValueAsString(object);

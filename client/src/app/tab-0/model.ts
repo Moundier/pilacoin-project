@@ -96,3 +96,18 @@ export type LogMessage = {
     level: 'INFO' | 'ERROR';
     expanded?: boolean;
 };
+
+export interface SseMessage {
+    timestamp?: number;
+    className: string;
+    message: string;
+    messageType: SseMessageType;
+}
+
+export enum SseMessageType {
+    MINED_BLOCK = 'MINED_BLOCK',
+    VALID_BLOCK = 'VALID_BLOCK',
+    MINED_PILA = 'MINED_PILA',
+    VALID_PILA = 'VALID_PILA',
+    TRANSFERRED_PILA = 'TRANSFERRED_PILA',
+}

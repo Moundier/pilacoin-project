@@ -2,8 +2,11 @@ package br.ufsm.csi.tapw.pilacoin.service.modulos;
 
 import br.ufsm.csi.tapw.pilacoin.model.BlocoValidado;
 import br.ufsm.csi.tapw.pilacoin.model.Difficulty;
+import br.ufsm.csi.tapw.pilacoin.model.SseMessage;
+import br.ufsm.csi.tapw.pilacoin.model.SseMessage.SseMessageType;
 import br.ufsm.csi.tapw.pilacoin.model.json.BlocoJson;
 import br.ufsm.csi.tapw.pilacoin.service.QueueService;
+import br.ufsm.csi.tapw.pilacoin.service.SseService;
 import br.ufsm.csi.tapw.pilacoin.types.Observer;
 import br.ufsm.csi.tapw.pilacoin.util.CryptoUtil;
 import br.ufsm.csi.tapw.pilacoin.util.JacksonUtil;
@@ -17,12 +20,14 @@ import org.springframework.stereotype.Service;
 public class BlockValidationService implements Observer<Difficulty>  {
     private final QueueService queueService;
     private final Singleton sharedUtil;
+    private final SseService sseService;
 
     private Difficulty difficulty;
 
-    public BlockValidationService(QueueService queueService, Singleton sharedUtil) {
+    public BlockValidationService(QueueService queueService, Singleton sharedUtil, SseService sseService) {
         this.queueService = queueService;
         this.sharedUtil = sharedUtil;
+        this.sseService = sseService;
     }
 
     @RabbitListener(queues = "${queue.bloco.minerado}")
@@ -36,11 +41,6 @@ public class BlockValidationService implements Observer<Difficulty>  {
         if (blocoJson == null) {
             return;
         }
-
-        // if (!this.modulo.isAtivo()) {
-        //     this.queueService.publishBlocoMinerado(blocoJson);
-        //     return;
-        // }
 
         boolean valid = CryptoUtil.compareHash(json, this.difficulty.getDificuldade());
 
@@ -59,7 +59,16 @@ public class BlockValidationService implements Observer<Difficulty>  {
 
         this.queueService.publishBlocoValidado(blocoValidado);
 
-        System.out.println("BLOCO VALIDADO\n---\n" + blocoJson.getNomeUsuarioMinerador());
+        System.out.println();
+
+        SseMessage sseMessage = SseMessage.builder()
+            .className(this.getClass().getName())
+            .message("Bloco validado " + blocoJson.getNomeUsuarioMinerador())
+            .timestamp(System.currentTimeMillis())
+            .messageType(SseMessageType.MINED_PILA)
+            .build();
+
+        this.sseService.sendSSE(JacksonUtil.toString(sseMessage));
 
         JournalUtil.log("Bloco de " + blocoJson.getNomeUsuarioMinerador() + " validado.");
     }
