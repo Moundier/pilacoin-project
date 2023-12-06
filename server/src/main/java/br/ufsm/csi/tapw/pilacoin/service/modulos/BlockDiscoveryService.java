@@ -3,6 +3,7 @@ package br.ufsm.csi.tapw.pilacoin.service.modulos;
 import br.ufsm.csi.tapw.pilacoin.model.Difficulty;
 import br.ufsm.csi.tapw.pilacoin.model.json.BlocoJson;
 import br.ufsm.csi.tapw.pilacoin.service.QueueService;
+import br.ufsm.csi.tapw.pilacoin.service.SseService;
 import br.ufsm.csi.tapw.pilacoin.types.Observer;
 import br.ufsm.csi.tapw.pilacoin.util.CryptoUtil;
 import br.ufsm.csi.tapw.pilacoin.util.JacksonUtil;
@@ -27,6 +28,7 @@ public class BlockDiscoveryService implements Observer<Difficulty> {
     private final List<BlockMinerRunnable> threads = new ArrayList<>();
 
     private Difficulty difficulty;
+
 
     public BlockDiscoveryService(QueueService queueService, Singleton sharedUtil) {
         this.queueService = queueService;
@@ -74,6 +76,8 @@ public class BlockDiscoveryService implements Observer<Difficulty> {
         
         private final Difficulty difficulty;
         private final BlocoJson blocoJson;
+        private SseService sseService;
+
 
         private boolean running = true;
 
@@ -98,6 +102,10 @@ public class BlockDiscoveryService implements Observer<Difficulty> {
 
                 if (CryptoUtil.compareHash(minedJson, this.difficulty.getDificuldade())) {
                     JournalUtil.logDoubleLineBox("BLOCO MINERADO\n---\nEm " + count + " tentativas");
+
+                    // SSE Emmiter
+                    // sseService.addEmitter(null);  
+
                     queueService.publishBlocoMinerado(blocoJson);
                     this.running = false;
                     break;

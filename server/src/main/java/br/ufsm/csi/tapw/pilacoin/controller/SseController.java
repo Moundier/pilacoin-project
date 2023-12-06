@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/sse")
@@ -40,5 +42,10 @@ public class SseController {
             emitter.complete();
             System.err.println("Error: AsyncRequestTimeoutException");
         }
+    }
+
+    @GetMapping("/{param}")
+    public void findEvent(@RequestParam String param) {
+        return;
     }
 }
