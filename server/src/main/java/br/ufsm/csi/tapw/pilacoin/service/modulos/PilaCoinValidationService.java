@@ -32,15 +32,11 @@ public class PilaCoinValidationService implements Observer<Difficulty>  {
 
     @RabbitListener(queues = "${queue.pila.minerado}")
     public void validatePila(@Payload String json) {
-        if (this.difficulty == null || json == null || json.isEmpty()) {
+
+        if (this.difficulty == null || json == null || json.isEmpty()) 
             return;
-        }
 
         PilaCoinJson pilaCoinJson = JacksonUtil.convert(json, PilaCoinJson.class);
-
-        if (pilaCoinJson == null) {
-            return;
-        }
 
         boolean valid = CryptoUtil.compareHash(json, this.difficulty.getDificuldade());
 
@@ -67,7 +63,7 @@ public class PilaCoinValidationService implements Observer<Difficulty>  {
             .messageType(SseMessageType.MINED_PILA)
             .build();
 
-        this.sseService.sendSSE(JacksonUtil.toString(sseMessage));
+        this.sseService.sendSseMessage(JacksonUtil.toString(sseMessage));
 
         JournalUtil.log("PilaCoin de " + pilaCoinJson.getNomeCriador() + " validado.");
     }

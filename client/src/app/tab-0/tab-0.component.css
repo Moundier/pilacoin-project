@@ -16,11 +16,10 @@ th, td {
     white-space: nowrap;
 }
 
-.custom_button {
+.blue_button {
     display: inline-block;
     font-weight: bold;
     text-align: center;
-    text-decoration: none;
     cursor: pointer;
     border: none;
     border-radius: 5px;
@@ -32,6 +31,27 @@ th, td {
     transition: background-color 0.3s ease;
 }
 
-.custom_button:hover {
+.blue_button:hover {
     background-color: #a8d5ff;
+}
+
+/* green color */
+
+.green_button {
+    display: inline-block;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 12px;
+    margin: 10px;
+    color: #007655;
+    background-color: #c7fddf;
+    transition: background-color 0.3s ease;
+}
+
+.green_button:hover {
+    background-color: #a8ffb5;
 }

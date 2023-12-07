@@ -14,6 +14,8 @@ import lombok.SneakyThrows;
 @Service
 public class SseService {
 
+  private final CopyOnWriteArrayList<SseEmitter> emitters = new CopyOnWriteArrayList<>();
+
   public void scheduleToTransmit(SseEmitter sseEmitter) {
 
     ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
@@ -35,28 +37,21 @@ public class SseService {
     }
   }
 
-  // New emitters filtered by type on the sent json
-  private final CopyOnWriteArrayList<SseEmitter> emitters = new CopyOnWriteArrayList<>();
-
   public SseEmitter createEmitter() {
-    SseEmitter emitter = new SseEmitter();
+    SseEmitter emitter = new SseEmitter(-1L);
     emitters.add(emitter);
     emitter.onCompletion(() -> emitters.remove(emitter));
     return emitter;
   }
 
-  public void sendSSE(String json) {
-    
-    String redString = "\u001B[31m" + json + "\u001B[0m";
-    System.out.println(redString);
-
+  public void sendSseMessage(String string) {
     for (var emitter : emitters) {
       try {
-        emitter.send(SseEmitter.event().data(json));
+        emitter.send(SseEmitter.event().data(string).build());
       } catch (IOException e) {
         emitter.complete();
+        emitters.remove(emitter);
       }
     }
   }
-
 }

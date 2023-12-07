@@ -1,10 +1,7 @@
-<!-- your-component.component.html -->
 <div class="flex flex-col gap-1 w-0 flex-1 basis-[24%] p-2 h-full order-2 border rounded-md border-neutral-800">
   <div class="flex items-center justify-between">
     <div class="flex items-center gap-2">
-      <button class="custom_button" (click)="reload()">
-        Reload
-      </button>
+      <button class="blue_button" (click)="reload()">Reload</button>
     </div>
   </div>
   <div class="relative flex flex-col h-full overflow-x-hidden overflow-y-auto rounded-sm bg-neutral-800">
@@ -22,6 +19,7 @@
             <th>id</th>
             <th>name</th>
             <th>public_key</th>
+            <th>action</th>
           </tr>
         </thead>
         <tbody>
@@ -29,6 +27,7 @@
               <td>{{ user.id }}</td>
               <td>{{ user.nome }}</td>
               <td class="limited_width">{{ user.chavePublica }}</td>
+              <td><button class="green_button">Send</button> </td>
             </tr>
         </tbody>
       </table>

@@ -113,7 +113,7 @@ public class BlockDiscoveryService implements Observer<Difficulty> {
                         .messageType(SseMessageType.MINED_BLOCK)
                         .build();
                     
-                    this.sseService.sendSSE(JacksonUtil.toString(sseMessage));
+                    this.sseService.sendSseMessage(JacksonUtil.toString(sseMessage));
 
                     queueService.publishBlocoMinerado(blocoJson);
                     this.running = false;

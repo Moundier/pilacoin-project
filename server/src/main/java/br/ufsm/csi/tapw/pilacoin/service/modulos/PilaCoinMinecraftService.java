@@ -68,7 +68,7 @@ public class PilaCoinMinecraftService implements Observer<Difficulty>  {
                         .messageType(SseMessageType.MINED_PILA)
                         .build();
 
-                    this.sseService.sendSSE(JacksonUtil.toString(sseMessage));
+                    this.sseService.sendSseMessage(JacksonUtil.toString(sseMessage));
 
                     queueService.publishPilaCoinMinerado(pilaCoin);
 

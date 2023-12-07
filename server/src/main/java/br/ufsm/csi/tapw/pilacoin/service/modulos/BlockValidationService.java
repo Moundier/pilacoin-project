@@ -59,16 +59,14 @@ public class BlockValidationService implements Observer<Difficulty>  {
 
         this.queueService.publishBlocoValidado(blocoValidado);
 
-        System.out.println();
-
         SseMessage sseMessage = SseMessage.builder()
             .className(this.getClass().getName())
-            .message("Bloco validado " + blocoJson.getNomeUsuarioMinerador())
+            .message("Bloco validado de " + blocoJson.getNomeUsuarioMinerador())
             .timestamp(System.currentTimeMillis())
             .messageType(SseMessageType.MINED_PILA)
             .build();
 
-        this.sseService.sendSSE(JacksonUtil.toString(sseMessage));
+        this.sseService.sendSseMessage(JacksonUtil.toString(sseMessage));
 
         JournalUtil.log("Bloco de " + blocoJson.getNomeUsuarioMinerador() + " validado.");
     }

@@ -4,6 +4,8 @@ import br.ufsm.csi.tapw.pilacoin.constants.Constants;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import lombok.SneakyThrows;
+
+import org.apache.tomcat.util.bcel.Const;
 import org.springframework.stereotype.Component;
 
 import java.nio.file.Files;
@@ -20,7 +22,7 @@ public class Singleton {
     private PublicKey publicKey;
     private Constants properties;
 
-    public Singleton(Constants properties) {
+    private Singleton(Constants properties) { 
         this.properties = properties;
     }
 
@@ -30,7 +32,6 @@ public class Singleton {
     }
 
     private static class GetSingleton {
-
         private static Constants properties;
         private static final Singleton INSTANCE = new Singleton(properties);
     }

@@ -69,7 +69,7 @@ public class QueueService {
             }
         }
 
-        throw new CustomNotFoundException("Modulo not found");
+        throw new CustomNotFoundException("Queue Service not Found");
     }
 
     private void enqueue(String queue, String message) {

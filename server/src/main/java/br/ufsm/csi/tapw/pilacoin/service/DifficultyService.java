@@ -25,11 +25,11 @@ public class DifficultyService implements Observable<Difficulty> {
     private Difficulty difficulty;
 
     public DifficultyService(
-        PilaCoinMinecraftService pilaCoinMiningService,
-        PilaCoinValidationService validationService,
-        BlockDiscoveryService blockDiscoveryService,
-        BlockValidationService blockValidationService
-    ) {
+
+            BlockDiscoveryService blockDiscoveryService,
+            BlockValidationService blockValidationService,
+            PilaCoinMinecraftService pilaCoinMiningService,
+            PilaCoinValidationService validationService) {
         this.subscribe(pilaCoinMiningService);
         this.subscribe(validationService);
         this.subscribe(blockDiscoveryService);
@@ -41,7 +41,7 @@ public class DifficultyService implements Observable<Difficulty> {
         Difficulty difficulty = JacksonUtil.convert(difficultyStr, Difficulty.class);
 
         if (this.difficulty == null || !difficulty.getDificuldade().equals(this.difficulty.getDificuldade())) {
-            
+
             this.updateDifficulty(difficulty);
         }
     }
@@ -51,11 +51,11 @@ public class DifficultyService implements Observable<Difficulty> {
 
         this.difficulty = diff;
 
-        if (!this.observers.isEmpty()) {
-            
-            for (var observer : observers) {
-                observer.update(this.difficulty);
-            }
+        if (this.observers.isEmpty())
+            return;
+
+        for (var observer : observers) {
+            observer.update(this.difficulty);
         }
     }
 

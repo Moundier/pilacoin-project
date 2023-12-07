@@ -53,9 +53,8 @@ public class SseController {
         this.sseService = sseService;
     }
 
-    @GetMapping(path = "/connect")
+    @GetMapping("/connect")
     public SseEmitter connect() {
         return sseService.createEmitter();
     }
-    
 }
