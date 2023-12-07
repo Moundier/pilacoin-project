@@ -4,28 +4,41 @@
 <div class="grid">
   
   <div class="grid-item">
-    <p>Server heartbeat</p>
-    <div class="item" *ngFor="let message of pulseMessages">
-      {{ message }}
+    <p>Server heartbeat (Epoch time)</p>
+    <div class="box">
+      <div *ngFor="let message of pulseMessages">
+        {{ message }}
+      </div>
     </div>
   </div>
 
-  <div class="grid-item">6</div>
+  <div class="grid-item">
+    <p>Server Side Events</p>
+    <div class="box">
+      <div *ngFor="let message of sseMessages">
+        { message.messages }
+      </div>
+    </div>
+  </div>
 
   <div class="grid-item">
     <p>Bloco Minerado</p>
-    <div class="item" *ngFor="let message of sseMessages">
-      <div *ngIf="message.messageType === 'MINED_BLOCK'">
-        {{ message.message }}
+    <div class="box">
+      <div class="item" *ngFor="let message of sseMessages">
+        <div *ngIf="message.messageType === 'MINED_BLOCK'">
+          {{ message.message }}
+        </div>
       </div>
     </div>
   </div>
 
   <div class="grid-item">
     <p>Pila Minerado</p>
-    <div class="item" *ngFor="let message of sseMessages">
-      <div *ngIf="message.messageType === 'MINED_PILA'">
-        {{ message.message }}
+    <div class="box">
+      <div class="item" *ngFor="let message of sseMessages">
+        <div *ngIf="message.messageType === 'MINED_PILA'">
+          {{ message.message }}
+        </div>
       </div>
     </div>
   </div>
@@ -33,18 +46,22 @@
   
   <div class="grid-item">
     <p>Bloco Validado</p>
-    <div class="item" *ngFor="let message of sseMessages">
-      <div *ngIf="message.messageType === 'VALID_BLOCK'">
-        {{ message.message }}
+    <div class="box">
+      <div class="item" *ngFor="let message of sseMessages">
+        <div *ngIf="message.messageType === 'VALID_BLOCK'">
+          {{ message.message }}
+        </div>
       </div>
     </div>
   </div>
 
   <div class="grid-item">
     <p>Pila validado</p>
-    <div class="item" *ngFor="let message of sseMessages">
-      <div *ngIf="message.messageType === 'VALID_PILA'">
-        {{ message.message }}
+    <div class="box">
+      <div class="item" *ngFor="let message of sseMessages">
+        <div *ngIf="message.messageType === 'VALID_PILA'">
+          {{ message.message }}
+        </div>
       </div>
     </div>
   </div>

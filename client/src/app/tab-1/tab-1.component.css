@@ -2,6 +2,11 @@
     font-size: 8px;
 }
 
+p {
+    padding: none;
+    margin: 0 0 0px;
+}
+
 .grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -13,5 +18,11 @@
     border: 1px solid #ccc;
     padding: 20px;
     text-align: left;
+}
+
+.box {
+    height: 130px;
+    max-height: 120px;
+    border: 1px solid red;
     overflow: scroll;
 }
