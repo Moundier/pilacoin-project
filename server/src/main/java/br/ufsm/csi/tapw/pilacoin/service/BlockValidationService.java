@@ -1,6 +1,6 @@
 package br.ufsm.csi.tapw.pilacoin.service;
 
-import br.ufsm.csi.tapw.blueprints.Observer;
+import br.ufsm.csi.tapw.pilacoin.blueprints.Observer;
 import br.ufsm.csi.tapw.pilacoin.model.BlocoValidado;
 import br.ufsm.csi.tapw.pilacoin.model.Difficulty;
 import br.ufsm.csi.tapw.pilacoin.model.SseMessage;
@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BlockValidationService implements Observer<Difficulty>  {
+
     private final QueueService queueService;
     private final Singleton sharedUtil;
     private final SseService sseService;
@@ -61,7 +62,7 @@ public class BlockValidationService implements Observer<Difficulty>  {
             .className(this.getClass().getName())
             .message("Bloco validado de " + blocoJson.getNomeUsuarioMinerador())
             .timestamp(System.currentTimeMillis())
-            .messageType(SseMessageType.MINED_PILA)
+            .messageType(SseMessageType.VALID_BLOCK)
             .build();
 
         this.sseService.sendSseMessage(JacksonUtil.toString(sseMessage));

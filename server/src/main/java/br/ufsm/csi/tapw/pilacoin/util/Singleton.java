@@ -23,6 +23,7 @@ public class Singleton {
 
     private Singleton(Constants properties) { 
         this.properties = properties;
+        this.loadKeypair(); 
     }
 
     // BILL PUGS'S SINGLETON IMPLEMENTATION
@@ -31,8 +32,7 @@ public class Singleton {
     }
 
     private static class GetSingleton {
-        private static Constants properties;
-        private static final Singleton INSTANCE = new Singleton(properties);
+        private static final Singleton INSTANCE = new Singleton(Constants.getInstance());
     }
 
     @SneakyThrows

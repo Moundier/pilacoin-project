@@ -13,15 +13,15 @@ import java.nio.file.Paths;
 @Component
 @PropertySource("classpath:application.yml")
 public class Constants {
-    
+
     @Value("${pilacoin.username}")
     private String username;
-    
+
     @Value("${pilacoin.home}")
     private String home;
 
     private Path homePath;
-    
+
     @Value("${pilacoin.mining-threads:#{null}}")
     private Integer numberOfThreads;
 
@@ -32,5 +32,14 @@ public class Constants {
         if (this.numberOfThreads == null) {
             this.numberOfThreads = Runtime.getRuntime().availableProcessors();
         }
+    }
+
+    // BILL PUGS'S SINGLETON IMPLEMENTATION
+    private static class ConstantsHolder {
+        private static final Constants INSTANCE = new Constants();
+    }
+
+    public static Constants getInstance() {
+        return ConstantsHolder.INSTANCE;
     }
 }

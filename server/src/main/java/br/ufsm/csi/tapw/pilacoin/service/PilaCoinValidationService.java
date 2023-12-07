@@ -1,6 +1,6 @@
 package br.ufsm.csi.tapw.pilacoin.service;
 
-import br.ufsm.csi.tapw.blueprints.Observer;
+import br.ufsm.csi.tapw.pilacoin.blueprints.Observer;
 import br.ufsm.csi.tapw.pilacoin.model.Difficulty;
 import br.ufsm.csi.tapw.pilacoin.model.PilaCoinValidado;
 import br.ufsm.csi.tapw.pilacoin.model.SseMessage;
@@ -58,7 +58,7 @@ public class PilaCoinValidationService implements Observer<Difficulty>  {
             .className(this.getClass().getName())
             .message("Pila validado " + pilaCoinJson.getNomeCriador())
             .timestamp(System.currentTimeMillis())
-            .messageType(SseMessageType.MINED_PILA)
+            .messageType(SseMessageType.VALID_PILA)
             .build();
 
         this.sseService.sendSseMessage(JacksonUtil.toString(sseMessage));

@@ -1,6 +1,6 @@
 package br.ufsm.csi.tapw.pilacoin.service;
 
-import br.ufsm.csi.tapw.blueprints.Observer;
+import br.ufsm.csi.tapw.pilacoin.blueprints.Observer;
 import br.ufsm.csi.tapw.pilacoin.model.Difficulty;
 import br.ufsm.csi.tapw.pilacoin.model.SseMessage;
 import br.ufsm.csi.tapw.pilacoin.model.SseMessage.SseMessageType;
@@ -37,6 +37,7 @@ public class BlockDiscoveryService implements Observer<Difficulty> {
 
     @RabbitListener(queues = "${queue.bloco.descobre}")
     public void descobreBloco(@Payload String json) {
+        
         if (this.difficulty == null || StringUtils.isEmpty(json)) {
             return;
         }

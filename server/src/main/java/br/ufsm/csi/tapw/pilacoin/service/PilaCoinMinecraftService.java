@@ -1,6 +1,6 @@
 package br.ufsm.csi.tapw.pilacoin.service;
 
-import br.ufsm.csi.tapw.blueprints.Observer;
+import br.ufsm.csi.tapw.pilacoin.blueprints.Observer;
 import br.ufsm.csi.tapw.pilacoin.model.Difficulty;
 import br.ufsm.csi.tapw.pilacoin.model.SseMessage;
 import br.ufsm.csi.tapw.pilacoin.model.SseMessage.SseMessageType;
@@ -10,9 +10,6 @@ import br.ufsm.csi.tapw.pilacoin.util.JournalUtil;
 import br.ufsm.csi.tapw.pilacoin.util.Singleton;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @Service
 public class PilaCoinMinecraftService implements Observer<Difficulty>  {
@@ -85,15 +82,12 @@ public class PilaCoinMinecraftService implements Observer<Difficulty>  {
         if (subject == null) {
             return;
         }
-
         Integer miningThreads = this.sharedUtil.getProperties().getNumberOfThreads();
-        ExecutorService executorService = Executors.newFixedThreadPool(miningThreads);
         for (int i = 0; i < miningThreads; i++) {
-            Runnable runnable = new PilaCoinMinerRunnable(subject, this.sseService);
-            executorService.execute(runnable);
+            PilaCoinMinerRunnable runnable = new PilaCoinMinerRunnable(subject, this.sseService);
+            Thread t = new Thread(runnable);
+            t.start();
         }
 
-        // Shutdown the thread pool when done
-        executorService.shutdown();
     }
 }
