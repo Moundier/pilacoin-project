@@ -1,3 +1,7 @@
+* {
+    font-size: 8px;
+}
+
 table {
     margin: 10px;
     border-collapse: collapse;
@@ -6,7 +10,7 @@ table {
 
 th, td {
     border: 1px solid black;
-    padding: 5px;
+    padding: 2px;
 }
 
 .limited_width {
@@ -24,7 +28,6 @@ th, td {
     border: none;
     border-radius: 5px;
     padding: 5px 10px;
-    font-size: 12px;
     margin: 10px;
     color: #003f76;
     background-color: #c7e3fd;
@@ -45,13 +48,11 @@ th, td {
     border: none;
     border-radius: 5px;
     padding: 5px 10px;
-    font-size: 12px;
-    margin: 10px;
     color: #007655;
     background-color: #c7fddf;
     transition: background-color 0.3s ease;
 }
 
 .green_button:hover {
-    background-color: #a8ffb5;
+    background-color: #b8f3c1;
 }

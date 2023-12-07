@@ -33,7 +33,6 @@ public class SseService {
       }
     } catch (IOException e) {
       emitter.complete();
-      System.err.println("Error: AsyncRequestTimeoutException");
     }
   }
 

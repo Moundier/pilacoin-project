@@ -1,13 +1,10 @@
-package br.ufsm.csi.tapw.pilacoin.service.modulos;
+package br.ufsm.csi.tapw.pilacoin.service;
 
+import br.ufsm.csi.tapw.blueprints.Observer;
 import br.ufsm.csi.tapw.pilacoin.model.Difficulty;
 import br.ufsm.csi.tapw.pilacoin.model.SseMessage;
 import br.ufsm.csi.tapw.pilacoin.model.SseMessage.SseMessageType;
 import br.ufsm.csi.tapw.pilacoin.model.json.PilaCoinJson;
-import br.ufsm.csi.tapw.pilacoin.service.PilaCoinService;
-import br.ufsm.csi.tapw.pilacoin.service.QueueService;
-import br.ufsm.csi.tapw.pilacoin.service.SseService;
-import br.ufsm.csi.tapw.pilacoin.types.Observer;
 import br.ufsm.csi.tapw.pilacoin.util.JacksonUtil;
 import br.ufsm.csi.tapw.pilacoin.util.JournalUtil;
 import br.ufsm.csi.tapw.pilacoin.util.Singleton;

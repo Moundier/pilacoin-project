@@ -1,4 +1,4 @@
-package br.ufsm.csi.tapw.pilacoin.types;
+package br.ufsm.csi.tapw.blueprints;
 
 public interface Observable<T> {
     void subscribe(Observer<T> observer);

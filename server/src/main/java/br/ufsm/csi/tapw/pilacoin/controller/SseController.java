@@ -35,7 +35,7 @@ public class SseController {
 
     private void sendUpdate(SseEmitter emitter) {
         try {
-            emitter.send("Update from server: " + System.currentTimeMillis());
+            emitter.send("Server heartbeat: " + System.currentTimeMillis());
         } catch (IOException e) {
             emitter.complete();
             System.err.println("Error: AsyncRequestTimeoutException");
