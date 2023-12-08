@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { QueueService } from './queue-service';
-import { QueryResponse, QueryResponseJson, UsuarioJson } from './model';
+import { QueryResponse, TransacaoJson, UsuarioJson } from './model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { TransactionService } from './transaction-service';
 
 @Component({
   selector: 'app-tab-0',
@@ -17,7 +17,7 @@ export class Tab0Component {
 
   users!: UsuarioJson[];
 
-  constructor(private queueService: QueueService) { }
+  constructor(private queueService: QueueService, private transactionService: TransactionService) { }
 
   ngOnInit(): void {
     this.loadData();
@@ -70,7 +70,24 @@ export class Tab0Component {
     }
   }
 
-  // Add a method to handle reloading
+  sendButtonClicked(user: UsuarioJson): void {
+    user.isButtonClicked = true;
+  }
+
+  undoTransaction(user: UsuarioJson): void {
+    user.isButtonClicked = false;
+  }
+
+  performTransaction(user: UsuarioJson): void {
+    console.log('before performTransaction')
+    this.transactionService.performTransaction(user);    
+
+    console.log('after performTransaction')
+    alert("tab-0.html Pila enviado ao usuario " + user.nome);
+
+    user.isButtonClicked = false;
+  }
+
   reload(): void {
     this.loadData();
   }

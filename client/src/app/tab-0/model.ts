@@ -1,39 +1,3 @@
-export type StringSetting = {
-    kind: 'STRING';
-    name: string;
-    value: string;
-};
-
-export type BooleanSetting = {
-    kind: 'BOOLEAN';
-    name: string;
-    value: boolean;
-};
-
-export type NumberSetting = {
-    kind: 'NUMBER';
-    name: string;
-    value: number;
-};
-
-export type RangeSetting = {
-    kind: 'RANGE';
-    name: string;
-    value: {
-        value: number;
-        min: number;
-        max: number;
-    };
-};
-
-export type ModuloSettings = StringSetting | BooleanSetting | NumberSetting | RangeSetting;
-
-export type Modulo = {
-    id: number;
-    name: string;
-    topic: string;
-    settings: ModuloSettings[];
-};
 
 export type TransacaoJson = {
     id: number;
@@ -72,6 +36,7 @@ export type UsuarioJson = {
     nome: string;
     chavePublica: string;
     selected: boolean;
+    isButtonClicked?: boolean; // New property to track button click
 };
 
 export type QueryResponseJson = {
@@ -88,15 +53,6 @@ export type QueryResponse<T> = {
     result: T[];
 };
 
-export type LogMessage = {
-    timestamp: number;
-    title: string;
-    message: string;
-    extra: object;
-    level: 'INFO' | 'ERROR';
-    expanded?: boolean;
-};
-
 export interface SseMessage {
     timestamp?: number;
     className: string;
@@ -110,4 +66,33 @@ export enum SseMessageType {
     MINED_PILA = 'MINED_PILA',
     VALID_PILA = 'VALID_PILA',
     TRANSFERRED_PILA = 'TRANSFERRED_PILA',
+}
+
+export interface Transferencia {
+    id: number;
+    status: string;
+    chaveUsuarioOrigem: Uint8Array;
+    chaveUsuarioDestino: Uint8Array; // get and send
+    nomeUsuarioOrigem: string;
+    nomeUsuarioDestino: string; // get and send
+    noncePila: string; // get and send
+    assinatura: Uint8Array;
+    dataTransacao: Date;
+}
+
+export interface PilaCoin {
+    id: number;
+    dataCriacao: Date;
+    chaveCriador: Uint8Array;
+    nomeCriador: string;
+    status: Status;
+    nonce: string;
+}
+
+export enum Status {
+    AG_VALIDACAO = "AG_VALIDACAO",
+    AG_BLOCO = "AG_BLOCO",
+    BLOCO_EM_VALIDACAO = "BLOCO_EM_VALIDACAO",
+    VALIDO = "VALIDO",
+    INVALIDO = "INVALIDO",
 }

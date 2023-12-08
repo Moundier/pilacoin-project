@@ -15,14 +15,14 @@ import org.springframework.stereotype.Service;
 public class PilaCoinMinecraftService implements Observer<Difficulty>  {
     private final QueueService queueService;
     private final PilaCoinService pilaCoinService;
-    private final Singleton sharedUtil;
+    private final Singleton singleton;
 
     private final SseService sseService;
 
-    public PilaCoinMinecraftService(QueueService queueService, PilaCoinService pilaCoinService, Singleton sharedUtil, SseService sseService) {
+    public PilaCoinMinecraftService(QueueService queueService, PilaCoinService pilaCoinService, Singleton singleton, SseService sseService) {
         this.queueService = queueService;
         this.pilaCoinService = pilaCoinService;
-        this.sharedUtil = sharedUtil;
+        this.singleton = singleton;
         this.sseService = sseService;
 
         JournalUtil.log("Minerador inicializado");
@@ -66,7 +66,7 @@ public class PilaCoinMinecraftService implements Observer<Difficulty>  {
 
                     queueService.publishPilaCoinMinerado(pilaCoin);
 
-                    count = 0;
+                    count = 0; // counter reset for next pila
                 }
             }
         }
@@ -82,11 +82,11 @@ public class PilaCoinMinecraftService implements Observer<Difficulty>  {
         if (subject == null) {
             return;
         }
-        Integer miningThreads = this.sharedUtil.getProperties().getNumberOfThreads();
+        int miningThreads = this.singleton.getProperties().getNumberOfThreads();
         for (int i = 0; i < miningThreads; i++) {
             PilaCoinMinerRunnable runnable = new PilaCoinMinerRunnable(subject, this.sseService);
-            Thread t = new Thread(runnable);
-            t.start();
+            Thread thread = new Thread(runnable);
+            thread.start();
         }
 
     }

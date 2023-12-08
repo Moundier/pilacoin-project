@@ -41,6 +41,17 @@ public class PilaCoinService {
         return this.pilaCoinRepository.save(pilaCoin);
     }
 
+    public PilaCoin findFirstPilaCoin() {
+        return pilaCoinRepository.findFirstByOrderByDataCriacaoAsc();
+    }
+
+    public void deletePilaCoinById(Long id) {
+        pilaCoinRepository.deleteById(id);
+    }
+
+
+    // Utilitary
+    
     @SneakyThrows
     public PilaCoinJson generatePilaCoin(Difficulty difficulty) {
         

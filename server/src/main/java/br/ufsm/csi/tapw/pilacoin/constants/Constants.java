@@ -30,7 +30,7 @@ public class Constants {
         this.homePath = Paths.get(this.home).toAbsolutePath();
 
         if (this.numberOfThreads == null) {
-            this.numberOfThreads = Runtime.getRuntime().availableProcessors() * 3;
+            this.numberOfThreads = Runtime.getRuntime().availableProcessors();
         }
     }
 

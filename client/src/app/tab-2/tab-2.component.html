@@ -1,27 +1,30 @@
-<div class="grid">
-  <div class="grid-item">
-    <div class="content">
-      <p>Block 1</p>
-      <p>Additional content goes here...</p>
-    </div>
-  </div>
-  <div class="grid-item">
-    <div class="content">
-      <p>Block 2</p>
-      <p>Additional content goes here...</p>
-    </div>
-  </div>
-  <div class="grid-item">
-    <div class="content">
-      <p>Block 3</p>
-      <p>Additional content goes here...</p>
-    </div>
-  </div>
-  <div class="grid-item">
-    <div class="content">
-      <p>Block 4</p>
-      <p>Additional content goes here...</p>
-    </div>
-  </div>
-  <!-- Repeat similar structure for other grid items -->
+<div *ngIf="!isLoading && !isError && queryData?.idQuery">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pila of pilas">
+        <td>{{ pila.id }}</td>
+        <td>{{ pila.chaveCriador }}</td>
+        <td>{{ pila.dataCriacao }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="isError">
+  <p>Error loading pilas data.</p>
+</div>
+
+<div *ngIf="isLoading">
+  <p>Loading pilas...</p>
+</div>
+
+<div *ngIf="!isLoading && !isError && !queryData?.idQuery && pilas.length === 0">
+  <p>No pilas found.</p>
 </div>

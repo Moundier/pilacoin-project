@@ -26,12 +26,13 @@ public class SseService {
   @SneakyThrows
   public void transmit(SseEmitter emitter, String message) {
     try {
-      if (message == null) {
-        emitter.send("ERROR_STRING_NULL: " + System.currentTimeMillis());
-      } else {
+      if (message != null) {
         emitter.send(message);
+        return;
       }
-    } catch (IOException e) {
+      emitter.send("ERROR_STRING_NULL: " + System.currentTimeMillis());
+    } 
+    catch (IOException e) {
       emitter.complete();
     }
   }

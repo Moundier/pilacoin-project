@@ -27,7 +27,17 @@
               <td>{{ user.id }}</td>
               <td>{{ user.nome }}</td>
               <td class="limited_width">{{ user.chavePublica }}</td>
-              <td><button class="green_button">Send</button> </td>
+              
+              <td *ngIf="!user.isButtonClicked">
+                <button class="green_button" (click)="sendButtonClicked(user)">Send</button>
+              </td>
+              <td class="increase" *ngIf="user.isButtonClicked">
+                <div class="flex">
+                  <button class="green_button" (click)="performTransaction(user)">Confirm send</button>
+                  <button class="red_buttton" (click)="undoTransaction(user)">Close</button>
+                </div>
+              </td>
+
             </tr>
         </tbody>
       </table>

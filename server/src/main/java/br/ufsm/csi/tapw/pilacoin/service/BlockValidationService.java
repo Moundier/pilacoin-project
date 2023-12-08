@@ -37,7 +37,7 @@ public class BlockValidationService implements Observer<Difficulty>  {
 
         BlocoJson blocoJson = JacksonUtil.convert(json, BlocoJson.class);
 
-        if (blocoJson == null) {
+        if (blocoJson == null || blocoJson.getNomeUsuarioMinerador() == null) {
             return;
         }
 

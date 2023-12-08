@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PilaCoinRepository extends JpaRepository<PilaCoin, Long> {
     PilaCoin findByNonce(String nonce);
+    PilaCoin findFirstByOrderByDataCriacaoAsc();
 }

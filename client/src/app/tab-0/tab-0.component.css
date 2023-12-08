@@ -5,10 +5,11 @@
 table {
     margin: 10px;
     border-collapse: collapse;
-    width: 80%;
+    width: 90%;
 }
 
-th, td {
+th,
+td {
     border: 1px solid black;
     padding: 2px;
 }
@@ -21,7 +22,6 @@ th, td {
 }
 
 .blue_button {
-    display: inline-block;
     font-weight: bold;
     text-align: center;
     cursor: pointer;
@@ -38,10 +38,7 @@ th, td {
     background-color: #a8d5ff;
 }
 
-/* green color */
-
 .green_button {
-    display: inline-block;
     font-weight: bold;
     text-align: center;
     cursor: pointer;
@@ -55,4 +52,31 @@ th, td {
 
 .green_button:hover {
     background-color: #b8f3c1;
+}
+
+.red_buttton {
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: #f9fcfa;
+    background-color: #760000;
+    transition: background-color 0.3s ease;
+}
+
+.red_button:hover {
+    background-color: #9b96cc;
+}
+
+input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 8px;
+}
+
+.increase {
+    min-width: 500px;
 }

@@ -12,13 +12,15 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Data
-@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonPropertyOrder({"dataCriacao", "chaveCriador", "nomeCriador", "nonce"})
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Entity
+@Table(name = "pilacoin")
 public class PilaCoin implements Cloneable {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore

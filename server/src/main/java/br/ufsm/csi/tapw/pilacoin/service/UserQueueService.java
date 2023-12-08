@@ -33,7 +33,6 @@ public class UserQueueService {
     public UserQueueService(PilaCoinService pilaCoinService, Singleton sharedUtil) {
         this.pilaCoinService = pilaCoinService;
         this.sharedUtil = sharedUtil;
-        // this.moduloService = moduloService;
     }
 
     @RabbitListener(queues = "${pilacoin.username}")
